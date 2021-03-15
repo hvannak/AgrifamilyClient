@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="app">
     <v-stepper v-model="e1" non-linear>
       <v-stepper-header>
         <v-stepper-step :complete="e1 > 1" editable step="1">
