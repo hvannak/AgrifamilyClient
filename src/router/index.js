@@ -128,6 +128,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  document.title = "Agrifamily Community"
   if(to.name == 'Home') {
     next({name: 'Welcome'})
   }
