@@ -22,8 +22,13 @@
     "vee-validate": "^3.4.5",
     "vue": "~2.6.12",
     "vue-router": "~3.4.9",
+    "vue-server-renderer": "^2.6.12",
     "vuetify": "~2.3.17",
-    "vuex": "^3.5.1"
+    "vuex": "^3.5.1",
+    "webpack-chain": "^6.5.1",
+    "webpack-manifest-plugin": "^3.1.0",
+    "webpack-nano": "^1.1.1",
+    "webpack-node-externals": "^2.5.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.8",

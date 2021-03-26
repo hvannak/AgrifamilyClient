@@ -20,8 +20,9 @@ export function setclientToken (){
     return config;    
 }
 
-export const api_url = "http://localhost:3000/api";
+// export const api_url = "http://localhost:3000/api";
 // export const api_url = "https://agrifamily.herokuapp.com/api";
+export const api_url = process.env.VUE_APP_API_URL;
 
 export function readBufferImg(imagedata) {
     var bytes = new Uint8Array(imagedata.data);
