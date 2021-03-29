@@ -8,7 +8,14 @@
 
 export default {
   name: 'App',
-
+  metaInfo: {
+      title: 'Agrifamily',
+      titleTemplate: '%s - Cambodia Community',
+      htmlAttrs: {
+        lang: 'en',
+        amp: true
+      }
+    },
   components: {
 
   },
