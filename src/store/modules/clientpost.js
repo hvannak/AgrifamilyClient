@@ -85,6 +85,22 @@ const actions = {
     }
   },
 
+  async fetchHotPost({ commit}){
+    try {
+      commit('setPostPages',[]);
+      const response = await axios.get(`${apihelper.api_url}/posts/hotPost`);
+      for (const [index,itm] of response.data.entries()) {
+        axios.get(`${apihelper.api_url}/posts/getFirstImage/${itm._id}`).then(respone1 => {
+            let imagedata = respone1.data.image;
+            response.data[index].firstimage = apihelper.readBufferImg(imagedata);
+        });
+      }
+      commit('setPostPages',response.data);
+    } catch (err) {
+      commit('updateMessage',err.response.data);
+    }
+  },
+
   async fetchPostById({ commit},_postId){
     try {
       const response = await axios.get(`${apihelper.api_url}/posts/getById/${_postId}`,apihelper.setclientToken());

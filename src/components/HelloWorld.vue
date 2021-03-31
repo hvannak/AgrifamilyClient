@@ -26,20 +26,35 @@
   <div class="slideshow-container">
 
     <div class="mySlides">
-      <q>I love you the more in that I believe you had liked me for my own sake and for nothing else</q>
-      <p class="author">- John Keats</p>
-      
+      <div class="row">
+        <div class="card" v-for="item in allPosts.slice(0,5)" :key="item._id">
+          <img :src="item.firstimage" class="image">
+          <h1 class="author">{{item.title}}</h1>
+          <p class="price">{{item.price}} {{item.currency}}</p>
+          <p><button>VIEW</button></p>
+        </div>
+      </div>
     </div>
-
     <div class="mySlides">
-      <q>But man is not made for defeat. A man can be destroyed but not defeated.</q>
-      <p class="author">- Ernest Hemingway</p>
+      <div class="row">
+        <div class="card" v-for="item in allPosts.slice(5,10)" :key="item._id">
+          <img :src="item.firstimage">
+          <h1 class="author">{{item.title}}</h1>
+          <p class="price">{{item.price}} {{item.currency}}</p>
+          <p><button>VIEW</button></p>
+        </div>
+      </div>
     </div>
-
     <div class="mySlides">
-      <q>I have not failed. I've just found 10,000 ways that won't work.</q>
-      <p class="author">- Thomas A. Edison</p>
-    </div>
+      <div class="row">
+        <div class="card" v-for="item in allPosts.slice(10,16)" :key="item._id">
+          <img :src="item.firstimage">
+          <h1 class="author">{{item.title}}</h1>
+          <p class="price">{{item.price}} {{item.currency}}</p>
+          <p><button>VIEW</button></p>
+        </div>
+      </div>
+    </div>      
 
     <a class="prev" @click="plusSlides(-1)">❮</a>
     <a class="next" @click="plusSlides(1)">❯</a>
@@ -56,31 +71,25 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
+
 export default {
     data: () => ({
-      slideIndex: 1,
-      items: [
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg'
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg'
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg'
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg'
-          }
-        ],
+      slideIndex: 1     
     }),
     created(){
-      
+      this.fetchHotPost();
+    },
+    computed: {
+    ...mapGetters([
+      "allPosts"
+    ])
     },
     mounted(){
       this.$nextTick(this.showSlides(this.slideIndex))
     },
     methods:{
+      ...mapActions(["fetchHotPost","fetchPostImage"]),
      showSlides(n){
         var i;
         var slides = document.getElementsByClassName("mySlides");
@@ -108,13 +117,17 @@ export default {
 <style scoped>
   .slideshow-container{
     position: relative;
-    background: #f1f1f1f1;
-    height: 40%;
+    background:  #f2f2f2;
+    height: 45%;
   }
   .mySlides{
     display: none;
-    padding: 80px;
+    padding: 5px;
     text-align: center;
+  }
+  .row {
+    display: flex;
+    justify-content: space-between;
   }
   .prev, .next {
     cursor: pointer;
@@ -171,4 +184,38 @@ export default {
 
   /* Add a blue color to the author */
   .author {color: cornflowerblue;}
+
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 250px;
+    height: 450px;
+    margin: auto;
+    text-align: center;
+    font-family: arial;
+  }
+
+  .card button {
+    border: none;
+    outline: 0;
+    padding: 12px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+  }
+
+  .price {
+    color: grey;
+    font-size: 22px;
+  }
+
+  .card button:hover {
+    opacity: 0.7;
+  }
+
+  .image {
+    height: 200px;
+  }
 </style>
