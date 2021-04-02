@@ -164,6 +164,8 @@
                       cols="12"
                       md="10"
                     >
+                      {{details.price}} {{details.currency}}
+                      <v-divider></v-divider>
                       {{details.phone}}
                       <v-divider></v-divider>
                       {{details.email}}

@@ -14,14 +14,13 @@
     </v-row>
   </v-card>
   <div class="slideshow-container">
-
     <div class="mySlides">
       <div class="row">
         <div class="card" v-for="item in allPosts.slice(0,5)" :key="item._id">
           <img :src="item.firstimage" class="image">
           <h1 class="author">{{item.title}}</h1>
           <p class="price">{{item.price}} {{item.currency}}</p>
-          <p><button>VIEW</button></p>
+          <p><button @click="showDetails(item)">VIEW</button></p>
         </div>
       </div>
     </div>
@@ -31,7 +30,7 @@
           <img :src="item.firstimage">
           <p class="author">{{item.title}}</p>
           <p class="price">{{item.price}} {{item.currency}}</p>
-          <p><button>VIEW</button></p>
+          <p><button @click="showDetails(item)">VIEW</button></p>
         </div>
       </div>
     </div>
@@ -41,7 +40,7 @@
           <img :src="item.firstimage">
           <h1 class="author">{{item.title}}</h1>
           <p class="price">{{item.price}} {{item.currency}}</p>
-          <p><button>VIEW</button></p>
+          <p><button @click="showDetails(item)">VIEW</button></p>
         </div>
       </div>
     </div>      
@@ -65,10 +64,143 @@
           <img :src="p.firstimage" class="image">
           <h1 class="author">{{p.title}}</h1>
           <p class="price">{{p.price}} {{p.currency}}</p>
-          <p><button>VIEW</button></p>
+          <p><button @click="showDetails(p)">VIEW</button></p>
         </div>
       </div>
     </div>
+
+    <v-row justify="space-around">
+      <v-col cols="auto">
+        <v-dialog
+          transition="dialog-top-transition"
+          max-width="800"
+          v-model="dialog"
+        >
+        <v-card>
+          <v-toolbar
+            color="primary"
+            dark
+          >{{showLanguage('Message_title_detail')}}</v-toolbar>
+          <v-carousel>
+            <v-carousel-item
+              v-for="(itm,i) in getPostImages"
+              :key="i"
+              :src="itm.image"
+              reverse-transition="fade-transition"
+              transition="fade-transition"
+              contain
+            ></v-carousel-item>
+          </v-carousel>
+          <v-card-text>
+          <v-timeline dense>
+            <v-timeline-item
+              color="purple lighten-2"
+              fill-dot
+              right
+            >
+              <v-card>
+                <v-card-title class="purple lighten-2">
+                  <v-icon
+                    dark
+                    size="42"
+                    class="mr-4"
+                  >
+                    mdi-magnify
+                  </v-icon>
+                  <h2 class="display-1 white--text font-weight-light">
+                    {{details.title}}
+                  </h2>
+                </v-card-title>
+                <v-container>
+                  <v-row>
+                    <v-col
+                      cols="12"
+                      md="10"
+                    >
+                      {{details.description}}
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-card>
+            </v-timeline-item>
+
+            <v-timeline-item
+              color="amber lighten-1"
+              fill-dot
+              right
+              small
+            >
+              <v-card>
+                <v-card-title class="amber lighten-1 justify-end">
+                  <h2 class="display-1 mr-4 white--text font-weight-light">
+                    {{showLanguage('Contact')}}
+                  </h2>
+                  <v-icon
+                    dark
+                    size="42"
+                  >
+                    mdi-email-outline          
+                  </v-icon>
+                </v-card-title>
+                <v-container>
+                  <v-row>
+                    <v-col
+                      cols="12"
+                      md="10"
+                    >                                          
+                      {{details.price}} {{details.currency}}
+                      <v-divider></v-divider>
+                      {{details.phone}}
+                      <v-divider></v-divider>
+                      {{details.email}}
+                    </v-col>           
+                  </v-row>
+                </v-container>
+              </v-card>
+            </v-timeline-item>
+
+            <v-timeline-item
+              color="cyan lighten-1"
+              fill-dot
+              right
+            >
+              <v-card>
+                <v-card-title class="cyan lighten-1">
+                  <v-icon
+                    class="mr-4"
+                    dark
+                    size="42"
+                  >
+                    mdi-home-outline
+                  </v-icon>
+                  <h2 class="display-1 white--text font-weight-light">
+                    {{showLanguage('Address')}}
+                  </h2>
+                </v-card-title>
+                <v-container>
+                  <v-row>
+                    <v-col
+                      cols="12"
+                      md="10"
+                    >
+                      {{details.location}}
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-card>
+            </v-timeline-item>            
+          </v-timeline>
+          </v-card-text>
+          <v-card-actions class="justify-end">
+            <v-btn
+              text
+              @click="dialog = false"
+            >{{showLanguage('Close')}}</v-btn>
+          </v-card-actions>
+        </v-card>
+        </v-dialog>
+      </v-col>
+    </v-row>
   
 </v-app>
 </template>
@@ -79,7 +211,9 @@ import * as apiHelper from '../store/modules/api-helper';
 
 export default {
     data: () => ({
-      slideIndex: 1     
+      slideIndex: 1,
+      dialog: false,
+      details: {},     
     }),
     created(){
       this.fetchHotPost();
@@ -87,16 +221,22 @@ export default {
     computed: {
     ...mapGetters([
       "allPosts",
-      "getHotPosts"
+      "getHotPosts",
+      "getPostImages"
     ])
     },
     mounted(){
       this.$nextTick(this.showSlides(this.slideIndex))
     },
     methods:{
-      ...mapActions(["fetchHotPost"]),
+      ...mapActions(["fetchHotPost","fetchPostImage"]),
       showLanguage(prop) {
         return apiHelper.getShowLang(prop);
+      },
+      showDetails(item){
+        this.fetchPostImage(item._id);
+        this.details = item;
+        this.dialog = true;
       },
      showSlides(n){
         var i;
