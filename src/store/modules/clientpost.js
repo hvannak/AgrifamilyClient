@@ -103,9 +103,9 @@ const actions = {
     }
   },
 
-  async fetchHotPostCategory({ commit}){
+  async fetchHotPostCategory({ commit},langId){
     try {
-      const response = await axios.get(`${apihelper.api_url}/posts/hotPostCategory`);    
+      const response = await axios.get(`${apihelper.api_url}/posts/hotPostCategory/${langId}`);    
       for (const [index,itm] of response.data.entries()) {
         for (const [index1,p] of itm.posts.entries()) {
           axios.get(`${apihelper.api_url}/posts/getFirstImage/${p._id}`).then(respone1 => {

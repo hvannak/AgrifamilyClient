@@ -514,6 +514,7 @@ export default {
     ...mapActions([
       "fetchUserClient",
       "fetchCategoriesLang",
+      "fetchHotPostCategory",
       "fetchPostByCat",
       "fetchPostByDetails",
       "fetchLocalLanguage",
@@ -531,7 +532,7 @@ export default {
       };
       this.fetchCategoriesLang(filter);
       localStorage.setItem("langId", langId);
-      // await this.$refs.observer.reset();
+      this.fetchHotPostCategory(langId);
       this.overideValidation();
     },
     searchCurrency(){
@@ -648,6 +649,7 @@ export default {
       all: this.showLanguage("All"),
     };
     await this.fetchCategoriesLang(filter);
+    await this.fetchHotPostCategory(defaultlang);
     this.overideValidation();
   },
   mounted() {

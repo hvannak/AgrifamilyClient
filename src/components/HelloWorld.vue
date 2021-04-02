@@ -4,12 +4,11 @@
     <v-row class="text-center">
       <v-col class="mb-4">
         <h1 class="display-2 font-weight-bold mb-3">
-          WELCOME TO AGRI-FAMILY
+          {{showLanguage('Welcome_title')}}
         </h1>
 
         <p class="subheading font-weight-regular">
-          we have collected all agriculture products and services in one place for easy getting informations.
-          <br>please contact us online
+          {{showLanguage('Welcome_subtitle')}}
         </p>
       </v-col>     
     </v-row>
@@ -76,6 +75,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import * as apiHelper from '../store/modules/api-helper';
 
 export default {
     data: () => ({
@@ -83,7 +83,6 @@ export default {
     }),
     created(){
       this.fetchHotPost();
-      this.fetchHotPostCategory();
     },
     computed: {
     ...mapGetters([
@@ -95,7 +94,10 @@ export default {
       this.$nextTick(this.showSlides(this.slideIndex))
     },
     methods:{
-      ...mapActions(["fetchHotPost","fetchPostImage","fetchHotPostCategory"]),
+      ...mapActions(["fetchHotPost"]),
+      showLanguage(prop) {
+        return apiHelper.getShowLang(prop);
+      },
      showSlides(n){
         var i;
         var slides = document.getElementsByClassName("mySlides");
