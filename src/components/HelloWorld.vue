@@ -16,7 +16,7 @@
   <div class="slideshow-container">
     <div class="mySlides">
       <div class="row">
-        <div class="card" v-for="item in allPosts.slice(0,5)" :key="item._id">
+        <div class="card" v-for="item in allPosts.slice(0,4)" :key="item._id">
           <img :src="item.firstimage" class="image">
           <h5 class="author">{{item.title}}</h5>
           <p class="price">{{item.price}} {{item.currency}}</p>
@@ -26,7 +26,7 @@
     </div>
     <div class="mySlides">
       <div class="row">
-        <div class="card" v-for="item in allPosts.slice(5,10)" :key="item._id">
+        <div class="card" v-for="item in allPosts.slice(4,8)" :key="item._id">
           <img :src="item.firstimage" class="image">
           <h5 class="author">{{item.title}}</h5>
           <p class="price">{{item.price}} {{item.currency}}</p>
@@ -36,7 +36,7 @@
     </div>
     <div class="mySlides">
       <div class="row">
-        <div class="card" v-for="item in allPosts.slice(10,16)" :key="item._id">
+        <div class="card" v-for="item in allPosts.slice(8,11)" :key="item._id">
           <img :src="item.firstimage" class="image">
           <h5 class="author">{{item.title}}</h5>
           <p class="price">{{item.price}} {{item.currency}}</p>
@@ -338,7 +338,7 @@ export default {
 
   .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    max-width: 20%;
+    max-width: 25%;
     height: 450px;
     margin: auto;
     text-align: center;
