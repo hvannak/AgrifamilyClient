@@ -267,6 +267,8 @@ export default {
     position: relative;
     background:  #f2f2f2;
     height: 25%;
+    border: 1px solid;
+    border-color: lightgoldenrodyellow;
   }
   .mySlides{
     display: none;
