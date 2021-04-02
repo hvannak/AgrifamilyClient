@@ -2,15 +2,6 @@
 <v-app>
   <v-card flat>
     <v-row class="text-center">
-      <v-col cols="12">
-        <v-img
-          :src="require('../assets/logo.svg')"
-          class="my-3"
-          contain
-          height="200"
-        />
-      </v-col>
-
       <v-col class="mb-4">
         <h1 class="display-2 font-weight-bold mb-3">
           WELCOME TO AGRI-FAMILY
@@ -39,7 +30,7 @@
       <div class="row">
         <div class="card" v-for="item in allPosts.slice(5,10)" :key="item._id">
           <img :src="item.firstimage">
-          <h1 class="author">{{item.title}}</h1>
+          <p class="author">{{item.title}}</p>
           <p class="price">{{item.price}} {{item.currency}}</p>
           <p><button>VIEW</button></p>
         </div>
@@ -66,6 +57,19 @@
       <span class="dot" @click="currentSlide(2)"></span> 
       <span class="dot" @click="currentSlide(3)"></span> 
     </div>
+    <div v-for="itm in getHotPosts" :key="itm._id" class="htcategory">
+      <div class="titlecategory">
+        <h4>{{itm.title}}</h4>
+      </div>
+      <div class="row">
+        <div v-for="p in itm.posts" :key="p._id" class="card bodycategory">
+          <img :src="p.firstimage" class="image">
+          <h1 class="author">{{p.title}}</h1>
+          <p class="price">{{p.price}} {{p.currency}}</p>
+          <p><button>VIEW</button></p>
+        </div>
+      </div>
+    </div>
   
 </v-app>
 </template>
@@ -79,17 +83,19 @@ export default {
     }),
     created(){
       this.fetchHotPost();
+      this.fetchHotPostCategory();
     },
     computed: {
     ...mapGetters([
-      "allPosts"
+      "allPosts",
+      "getHotPosts"
     ])
     },
     mounted(){
       this.$nextTick(this.showSlides(this.slideIndex))
     },
     methods:{
-      ...mapActions(["fetchHotPost","fetchPostImage"]),
+      ...mapActions(["fetchHotPost","fetchPostImage","fetchHotPostCategory"]),
      showSlides(n){
         var i;
         var slides = document.getElementsByClassName("mySlides");
@@ -118,7 +124,7 @@ export default {
   .slideshow-container{
     position: relative;
     background:  #f2f2f2;
-    height: 45%;
+    height: 25%;
   }
   .mySlides{
     display: none;
@@ -132,7 +138,7 @@ export default {
   .prev, .next {
     cursor: pointer;
     position: absolute;
-    top: 50%;
+    top: 40%;
     width: auto;
     margin-top: -30px;
     padding: 16px;
@@ -188,7 +194,7 @@ export default {
   .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     max-width: 250px;
-    height: 450px;
+    height: 500px;
     margin: auto;
     text-align: center;
     font-family: arial;
@@ -217,5 +223,28 @@ export default {
 
   .image {
     height: 200px;
+  }
+
+  .htcategory {
+    background-color: #f2f2f2;
+    height: 600px;
+  }
+
+  .titlecategory{
+    background-color: darkslateblue;
+    height: 50px;
+    color: whitesmoke;
+    padding-top: 15px;
+    font-weight: bold;
+    font-size: 1rem;
+    padding-left: 30px;
+  }
+
+  .bodycategory{
+    background-color: white;
+    height: 500px;
+    border: 1px solid;
+    border-color: lightgoldenrodyellow;
+    padding: 10px;
   }
 </style>

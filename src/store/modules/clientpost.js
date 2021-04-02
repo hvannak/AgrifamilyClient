@@ -11,7 +11,8 @@ const state = {
   searchObj: {},
   currentPage: 1,
   firstPostImage: {},
-  postImages: []
+  postImages: [],
+  hotPosts: []
 };
 
 const getters = {
@@ -22,7 +23,8 @@ const getters = {
   getSearchObj: state => state.searchObj,
   getCurrentPage: state => state.currentPage,
   getFirstPostImage: state => state.firstPostImage,
-  getPostImages: state => state.postImages
+  getPostImages: state => state.postImages,
+  getHotPosts: state => state.hotPosts
 };
 
 const actions = {
@@ -101,6 +103,23 @@ const actions = {
     }
   },
 
+  async fetchHotPostCategory({ commit}){
+    try {
+      const response = await axios.get(`${apihelper.api_url}/posts/hotPostCategory`);    
+      for (const [index,itm] of response.data.entries()) {
+        for (const [index1,p] of itm.posts.entries()) {
+          axios.get(`${apihelper.api_url}/posts/getFirstImage/${p._id}`).then(respone1 => {
+              let imagedata = respone1.data.image;
+              response.data[index].posts[index1].firstimage = apihelper.readBufferImg(imagedata);
+          });
+        }
+      }
+      commit('setHotPost',response.data);
+    } catch (err) {
+      commit('updateMessage',err.response.data);
+    }
+  },
+
   async fetchPostById({ commit},_postId){
     try {
       const response = await axios.get(`${apihelper.api_url}/posts/getById/${_postId}`,apihelper.setclientToken());
@@ -169,6 +188,7 @@ const mutations = {
     updateMessage:(state,message) => (state.message = message),
     setTotalItems:(state,total) => (state.totalItems = total),
     setPostPages:(state,post) => (state.posts = post),
+    setHotPost: (state,hotpost) => (state.hotPosts = hotpost),
     setPostObj: (state, role) => (state.role = role),
     setPostImageObj: (state,imgpost) => (state.firstPostImage = imgpost),
     setPostImages: (state,imgposts) => (state.postImages = imgposts),
