@@ -18,7 +18,7 @@
       <div class="row">
         <div class="card" v-for="item in allPosts.slice(0,5)" :key="item._id">
           <img :src="item.firstimage" class="image">
-          <h1 class="author">{{item.title}}</h1>
+          <h5 class="author">{{item.title}}</h5>
           <p class="price">{{item.price}} {{item.currency}}</p>
           <p><button @click="showDetails(item)">VIEW</button></p>
         </div>
@@ -27,8 +27,8 @@
     <div class="mySlides">
       <div class="row">
         <div class="card" v-for="item in allPosts.slice(5,10)" :key="item._id">
-          <img :src="item.firstimage">
-          <p class="author">{{item.title}}</p>
+          <img :src="item.firstimage" class="image">
+          <h5 class="author">{{item.title}}</h5>
           <p class="price">{{item.price}} {{item.currency}}</p>
           <p><button @click="showDetails(item)">VIEW</button></p>
         </div>
@@ -37,8 +37,8 @@
     <div class="mySlides">
       <div class="row">
         <div class="card" v-for="item in allPosts.slice(10,16)" :key="item._id">
-          <img :src="item.firstimage">
-          <h1 class="author">{{item.title}}</h1>
+          <img :src="item.firstimage" class="image">
+          <h5 class="author">{{item.title}}</h5>
           <p class="price">{{item.price}} {{item.currency}}</p>
           <p><button @click="showDetails(item)">VIEW</button></p>
         </div>
@@ -276,6 +276,7 @@ export default {
   .row {
     display: flex;
     justify-content: space-between;
+    flex-wrap: nowrap;
   }
   .prev, .next {
     cursor: pointer;
@@ -335,8 +336,8 @@ export default {
 
   .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    max-width: 250px;
-    height: 500px;
+    max-width: 20%;
+    height: 450px;
     margin: auto;
     text-align: center;
     font-family: arial;
@@ -369,7 +370,7 @@ export default {
 
   .htcategory {
     background-color: #f2f2f2;
-    height: 600px;
+    height: 530px;
   }
 
   .titlecategory{
@@ -384,7 +385,7 @@ export default {
 
   .bodycategory{
     background-color: white;
-    height: 500px;
+    /* height: 450px; */
     border: 1px solid;
     border-color: lightgoldenrodyellow;
     padding: 10px;
