@@ -285,24 +285,6 @@
           <v-card height="100%">
             <v-navigation-drawer class="mx-auto" permanent right>
               <v-divider></v-divider>
-
-              <!-- <v-list dense>
-                <v-list-item
-                  link
-                  v-for="item in items"
-                  :key="item.name"
-                  :to="item.path"
-                >
-                  <v-list-item-icon>
-                    <v-icon>{{ item.meta.icon }}</v-icon>
-                  </v-list-item-icon>
-
-                  <v-list-item-content>
-                    <v-list-item-title>{{showLanguage(item.name)}}</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list> -->
-
               <v-system-bar height="50" dark color="red lighten-2">
                 <v-icon>mdi-home-search</v-icon>
                 <span>{{showLanguage("Detail_search_data")}}</span>
@@ -429,6 +411,9 @@
         </v-col>
       </v-row>
     </v-main>
+    <v-footer app>
+       &copy; Agrifamily Community {{ new Date().getFullYear() }}
+    </v-footer>
     <v-dialog
       transition="dialog-bottom-transition"
       max-width="700"
