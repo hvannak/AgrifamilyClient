@@ -266,19 +266,19 @@ export default {
   .slideshow-container{
     position: relative;
     background:  #f2f2f2;
-    height: 25%;
     border: 1px solid;
     border-color: lightgoldenrodyellow;
   }
   .mySlides{
     display: none;
-    padding: 5px;
+    padding: 10px;
     text-align: center;
   }
   .row {
     display: flex;
     justify-content: space-between;
     flex-wrap: nowrap;
+    padding: inherit;
   }
   .prev, .next {
     cursor: pointer;
@@ -372,14 +372,16 @@ export default {
 
   .htcategory {
     background-color: #f2f2f2;
-    height: 530px;
+    /* height: 530px; */
+    padding-top: 25px;
+    padding-bottom: 10px;
   }
 
   .titlecategory{
     background-color: darkslateblue;
     height: 50px;
     color: whitesmoke;
-    padding-top: 15px;
+    padding-top: 10px;
     font-weight: bold;
     font-size: 1rem;
     padding-left: 30px;
@@ -390,6 +392,5 @@ export default {
     /* height: 450px; */
     border: 1px solid;
     border-color: lightgoldenrodyellow;
-    padding: 10px;
   }
 </style>
