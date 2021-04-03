@@ -666,10 +666,10 @@ export default {
 };
 </script>
 <style>
-.pdiv {
-  height: 100vh;
-  line-height: 100vh;
-  text-align: center;
-  border: 1px dashed #f69c55;
-}
+  .pdiv {
+    height: 100vh;
+    line-height: 100vh;
+    text-align: center;
+    border: 1px dashed #f69c55;
+  }
 </style>

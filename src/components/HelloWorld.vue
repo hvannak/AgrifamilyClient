@@ -263,6 +263,9 @@ export default {
   }
 </script>
 <style scoped>
+  .v-application {
+    font-family: 'Battambang', cursive;
+  }
   .slideshow-container{
     position: relative;
     background:  #f2f2f2;
