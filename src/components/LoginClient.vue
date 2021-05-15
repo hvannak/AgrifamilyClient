@@ -7,8 +7,7 @@
           type="warning"
           text
         >
-          <!-- {{ getMessage }} -->
-          {{showLanguage(getMessage)}}
+          {{showLanguage(`${getMessage}`)}}
         </v-alert>
         <v-main>
           <ValidationObserver ref="observer" v-slot="{ invalid }">
