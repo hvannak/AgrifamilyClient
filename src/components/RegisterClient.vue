@@ -6,7 +6,8 @@
         type="success"
         text
       >
-        {{ getMessage }}
+        <!-- {{ getMessage }} -->
+        {{showLanguage(getMessage)}}
       </v-alert>
       <v-card width="90%" class="mx-auto my-auto">
         <ValidationObserver v-slot="{ invalid }">

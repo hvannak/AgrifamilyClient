@@ -18,6 +18,7 @@ const getters = {
 const actions = {
 
   async fetchManageClientPostPages({ commit },pageObj) {
+    console.log(pageObj);
     try {
       const response = await axios.post(`${apihelper.api_url}/posts/pageclient`,pageObj,apihelper.setclientToken());
       commit('setPostPages',response.data.objList);
