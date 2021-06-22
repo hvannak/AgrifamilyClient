@@ -91,7 +91,7 @@
                 <v-col cols="10" offset-md="1">
                   <ValidationProvider
                                 name="Price"
-                                rules="required|numeric"
+                                rules="required|double"
                                 v-slot="{ errors }"
                               >
                   <v-text-field
